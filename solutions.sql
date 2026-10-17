@@ -34,14 +34,15 @@ ORDER BY status ASC;
 
 --Query 5
 --What is the `loan_id` of the highest payment received in the `loan` table?
-SELECT loan_id,MAX(payments) AS  HIGHEST_AMOUNT
+SELECT loan_id
 FROM loan
-
+ORDER BY payments DESC
+LIMIT 1;
 
 --Query 6
 --What is the loan `amount` of the lowest 5 `account_id`s in the `loan` table? Show the `account_id` and the corresponding `amount`
 
-SELECT account_id,amount
+SELECT account_id, amount
 FROM loan
 ORDER BY loan_id
 LIMIT 5;
@@ -50,10 +51,10 @@ LIMIT 5;
 
 --Query 7
 --What are the `account_id`s with the lowest loan `amount` that have a loan `duration` of 60 in the `loan` table?
-SELECT account_id,amount
+SELECT account_id
 FROM loan
-WHERE duration =60
-ORDER BY amount
+WHERE duration = 60
+ORDER BY amount ASC
 LIMIT 5;
 
 --Query 8
@@ -78,7 +79,7 @@ WHERE order_id BETWEEN 29540 AND 29560;
 
 --Query 11
 --In the `order` table, what are the individual amounts that were sent to (`account_to`) id 30067122?
-SELECT amount
+SELECT DISTINCT amount
 FROM `order`
 WHERE account_to = 30067122;
 
@@ -88,7 +89,7 @@ WHERE account_to = 30067122;
 SELECT trans_id, date, type, amount
 FROM trans
 WHERE account_id = 793
-ORDER BY date DESC
+ORDER BY trans_id DESC
 LIMIT 10;
 
 --Query 13
@@ -109,11 +110,12 @@ ORDER BY number_of_cards DESC;
 
 --Query 15
 --Using the `loan` table, print the top 10 `account_id`s based on the sum of all of their loan amounts.
-SELECT account_id, SUM(amount) AS total_loan_amount
+SELECT account_id, SUM(amount) AS total_amount
 FROM loan
 GROUP BY account_id
-ORDER BY total_loan_amount DESC
+ORDER BY total_amount DESC
 LIMIT 10;
+
 
 --Query 16
 --In the `loan` table, retrieve the number of loans issued for each day, before (excl) 930907, ordered by date in descending order.
